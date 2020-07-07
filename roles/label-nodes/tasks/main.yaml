@@ -1,0 +1,19 @@
+- name: "label nodes"
+  command: "kubectl label nodes --all --overwrite {{ item }}=enabled"
+  with_items:
+    - openstack-control-plane
+    - openstack-compute-node
+    - openvswitch
+    - linuxbridge
+    - ceph-mon
+    - ceph-osd
+    - ceph-mds
+    - ceph-rgw
+    - ceph-mgr
+
+- name: "add labels to namespaces"
+  command: "kubectl label --overwrite namespace {{ item }} name={{ item }}"
+  with_items:
+    - default
+    - kube-system
+    - kube-public

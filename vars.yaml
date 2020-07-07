@@ -1,0 +1,20 @@
+version:
+  # the debian package in the openSuse don't have the latest, we will have to deal with
+  # its pathing convention to get the correct debian package.
+  # 1.18 path
+  # crioPath: 1.18:/1.18.1/xUbuntu_20.04/amd64/cri-o_1.18.1~1_amd64.deb
+  # 1.17 path
+  crioPath: 1.18:/1.18.1/xUbuntu_20.04/amd64/cri-o_1.18.1~1_amd64.deb
+  crictl: v1.18.0
+  calico: 3.12
+  kubernetes: 1.18.3
+  kubectl: 1.18.3
+  kubeadm: 1.18.3
+k8s:
+  networking:
+    podNetwork: 192.168.0.0/16
+    svcNetwork: 10.96.0.0/12
+    dnsDomain: cluster.local
+    dnsAddresses:
+      - 8.8.8.8
+      - 8.8.4.4

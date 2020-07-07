@@ -1,0 +1,35 @@
+- hosts: k8s_master
+  vars_files:
+    - vars.yaml
+  roles:
+    - setup-hosts
+    - role: deploy-kubernetes
+      k8s_role_to_deploy:
+        - master
+  tasks:
+    - name: "extract kubeadm join command"
+      become: yes
+      command: bash -c "kubeadm token create --print-join-command 2>/dev/null"
+      register: kubeadm_join_cmd
+
+# - hosts: k8s_master
+#   vars_files:
+#     - vars.yaml
+#   roles:
+#     - setup-cni
+
+# - hosts: k8s-nodes
+#   vars_files:
+#     - vars.yaml
+#   roles:
+#     - setup-hosts
+#     - role: deploy-kubernetes
+#       k8s_role_to_deploy:
+#         - node
+#       kubeadm_join_cmd: "{{ hostvars['k8s_master']['kubeadm_join_cmd']['stdout'] }}"
+
+# - hosts: k8s_master
+#   vars_files:
+#     - vars.yaml
+#   roles:
+#     - label-nodes

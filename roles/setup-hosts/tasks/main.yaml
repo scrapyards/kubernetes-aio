@@ -1,0 +1,55 @@
+- name: "install packages"
+  become: yes
+  apt:
+    state: present
+    update_cache: yes
+    pkg:
+      - apt-transport-https
+      - ca-certificates
+      - apt-utils
+      - curl
+      - gnupg-agent
+      - software-properties-common
+      - git
+      - gcc
+      - make
+      - nfs-common
+      - ceph-common
+      - rbd-nbd
+      - jq
+      - xz-utils
+
+- name: "stops systemd-resolved"
+  become: yes
+  systemd:
+    name: systemd-resolved
+    enabled: no
+    daemon_reload: yes
+    state: stopped
+
+- name: "loads the new resolv.conf"
+  become: yes
+  template:
+    dest: /etc/resolv.conf
+    src: resolv.conf.j2
+    unsafe_writes: yes
+
+- name: "mkdir etc directory"
+  become: yes
+  file:
+    path: /etc/kubernetes
+    state: directory
+
+- name: "loads the new resolv.conf"
+  become: yes
+  template:
+    dest: /etc/kubernetes/resolv.conf
+    src: resolv.conf.j2
+    unsafe_writes: yes
+
+- name: "loads the new resolv.conf"
+  become: yes
+  template:
+    dest: /etc/kubernetes/kubelet-resolv.conf
+    src: kubelet-resolv.conf.j2
+    unsafe_writes: yes

@@ -1,0 +1,9 @@
+k8s_master:
+  hosts:
+    # ghugo.no-ip.org:
+    #   ansible_connection: ssh
+    #   ansible_user: ubuntu
+    #   ansible_port: 3013
+    doomfist:
+      ansible_connection: ssh
+      ansible_user: tin

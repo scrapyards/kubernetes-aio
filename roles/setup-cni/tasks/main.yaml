@@ -1,0 +1,13 @@
+- name: "download calico"
+  shell: "kubectl apply -f https://docs.projectcalico.org/v{{ version.calico }}/manifests/calico.yaml"
+
+- name: "patch calico - part 1"
+  shell: kubectl -n kube-system set env daemonset/calico-node FELIX_IGNORELOOSERPF=true
+
+# - name: "template out patch"
+#   template:
+#     src: calico-node.yaml.j2
+#     dest: /tmp/calico-node.yaml
+
+# - name: "patch calico - part 2"
+#   shell: bash -c "kubectl -n kube-system patch daemonset calico-node --patch \"$(cat /tmp/calico-node.yaml)\""
