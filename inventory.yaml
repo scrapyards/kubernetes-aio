@@ -4,6 +4,6 @@ k8s_master:
     #   ansible_connection: ssh
     #   ansible_user: ubuntu
     #   ansible_port: 3013
-    doomfist:
+    orisa:
       ansible_connection: ssh
       ansible_user: tin
