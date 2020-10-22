@@ -68,6 +68,19 @@
   apt:
     deb: "https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable:/cri-o:/{{ version.crioPath }}"
 
+- name: "create directory"
+  become: yes
+  file:
+    path: /usr/lib/cri-o-runc/sbin
+    state: directory
+
+- name: "hack a link"
+  become: yes
+  file:
+    src: /usr/sbin/runc
+    dest: /usr/lib/cri-o-runc/sbin/runc
+    state: link
+
 - name: "check for crictl"
   stat:
     path: /usr/local/bin/crictl
